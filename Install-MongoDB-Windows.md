@@ -1,4 +1,4 @@
-# Install MongoDB trến Windows10
+# Install MongoDB trên Windows10
 
 1. Download MongoDB Community Server
 	Vào CLI gõ lệnh
