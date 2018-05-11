@@ -8,13 +8,17 @@
 6. **db.createCollection("mycol", {capped: true, autoIndexID: true, size: 6142800, max: 1000})** : tạo mới một collection với một số option quan trọng
 7. **db.collection_name.drop()**: xóa một collection
 8. **db.collection_name.insert({username: "nhantt", pass: "123456", status: true})** : insert một document
-9. ```
+
+9. Khai báo một Object
+
+  ```
     var user = {};
     user.username = "admin";
-    user.pass = "admin";
-    user.status = false;
+    user.pass = "admin"
+    user.status = false
   ```
- **db.collection_name.save(user)**: insert save một document mới từ một object
+
+ **db.collection_name.save(user)** : insert save một document mới từ một object
 
 10. **db.collection_name.find()** : truy vấn tất cả các document không có cấu trúc hiển thị ở trong collection
 11. **db.collection_name.find().pretty()** : truy vấn tất cả các document hiển thị có cấu trúc trong collection
