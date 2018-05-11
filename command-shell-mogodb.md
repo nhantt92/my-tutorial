@@ -1,38 +1,43 @@
-# Command shell MongoDB
+# Một số Command shell thao tác với MongoDB
 
-## show dbs : hien thi cac database dang co
-## use ten_db :  chuyen doi database dang co, neu khong co tao moi database
-## db : xem hien dang chon su dung database nao
-## db.dropDatabase() : xoa mot database dang chon
-## db.createCollection("name_Collection") : tao moi mot collection moi
-## db.createCollection("mycol", {capped: true, autoIndexID: true, size: 6142800, max: 1000}) : tao moi mot collection voi mot so option quan trong
-## db.collection_name.drop() xoa 1 collection
-## db.collection_name.insert({username: "nhantt", pass: "123456", status: true}) : insert 1 document
-## var user = {}; user.username = "admin"; user.pass = "admin"; user.status = false;
- db.collection_name.save(user): insert save 1 document moi tu mot object
+1. **show dbs** : hiển thị các database đang có
+2. **use ten_db** :  chuyển đổi database đang có, nếu không có tạo mới database
+3. **db** : xem hiện đang chọn sử dụng database nào
+4. **db.dropDatabase()** : xóa một database đang chọn
+5. **db.createCollection("name_Collection")** : tạo mới một collection
+6. **db.createCollection("mycol", {capped: true, autoIndexID: true, size: 6142800, max: 1000})** : tạo mới một collection với một số option quan trọng
+7. **db.collection_name.drop()**: xóa một collection
+8. **db.collection_name.insert({username: "nhantt", pass: "123456", status: true})** : insert một document
+9. ```
+    var user = {};
+    user.username = "admin";
+    user.pass = "admin";
+    user.status = false;
+  ```
+ **db.collection_name.save(user)**: insert save một document mới từ một object
 
-## db.collection_name.find() : truy van tat ca cac document khong co cau truc hien thi o trong collection
-## db.collection_name.find().pretty() : truy van tat ca cac document hien thi co cau truc o collection
- 
-## export collection -> file.json:
+10. **db.collection_name.find()** : truy vấn tất cả các document không có cấu trúc hiển thị ở trong collection
+11. **db.collection_name.find().pretty()** : truy vấn tất cả các document hiển thị có cấu trúc trong collection
 
- mongoexport --db ten_db --collection ten_collection --out  "PATH\ten.json"
+12. **export collection -> file.json:**
 
- hoac
+ `mongoexport --db ten_db --collection ten_collection --out  "PATH\ten.json"`
 
- mongoexport -d ten_db -c ten_collection -o "Path\ten.json"
+ Hoặc
 
-## import collection from file.json
+ `mongoexport -d ten_db -c ten_collection -o "Path\ten.json"``
 
-mongoimport -d ten_db -c ten_collection --file "PATH\file.json"
+13. **import collection from file.json:**
 
-## export collection -> file.csv
+  `mongoimport -d ten_db -c ten_collection --file "PATH\file.json"`
 
-mongoexport -d ten_db -c ten_collection --type=csv -o "PATH\ten_file.csv" -f id,user_name,password,skill,status
+14. **export collection -> file.csv:**
 
--f : dinh nghia cac field
+  `mongoexport -d ten_db -c ten_collection --type=csv -o "PATH\ten_file.csv" -f id,user_name,password,skill,status
+  `
 
-## import collection from file.csv
+  -f : định nghĩa các field
 
-mongoimport -d ten_db -c ten_collection --type=csv --file "PATH\ten_file.csv" --headerline
+15. **import collection from file.csv:**
 
+  `mongoimport -d ten_db -c ten_collection --type=csv --file "PATH\ten_file.csv" --headerline`
