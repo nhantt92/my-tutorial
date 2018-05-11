@@ -1,103 +1,150 @@
-# Install MongoDB on Windows10
+# Install MongoDB trến Windows10
 
 1. Download MongoDB Community Server
-https://www.mongodb.com/download-center?_ga=2.127252933.955389107.1525826444-890511087.1525826444#production
+	Vào CLI gõ lệnh
 
-2. Install 
+	`wmic os get caption`
 
-Select Custom Change PATH install
+	`wmic os get osarchitecture`
 
-C:\MongoDB\3.6\
+	để kiểm tra phiên bản hệ điều hành đang sử dụng
 
-3. mkdir C:\MongoDB\Data
-	mkdir C:\MongoDB\Data\db
+	Vào Link sau download bản cài đặt MongoDB Community Server
+[MongoDB](https://www.mongodb.com/download-center?_ga=2.127252933.955389107.1525826444-890511087.1525826444#production)
 
-4. cd C:\MongoDB\Server\3.6\bin
+2. Install
 
-	mongod --dbpatch C:\MongoDB\data
+	Select Custom Change PATH install
+
+	` C:\MongoDB\3.6\ `
+
+3. Tạo các thư mục mới lưu trữ database
+
+	`mkdir C:\MongoDB\Data`
+
+	`mkdir C:\MongoDB\Data\db`
+
+
+4. Vào đường dẫn cài đặt mongodb
+
+	`cd C:\MongoDB\Server\3.6\bin`
+
+	Chạy lệnh sau để run mongo Server
+
+	`mongod --dbpatch C:\MongoDB\data`
 
 5. Test connect with app Robomongo
 
-Close Command Line -> Exit Mongod
+	>Note: Đóng Command Line Mongod sẽ stop
 
-Muon chay lai server mongod phai thuc hien
-ReOpen server Mongod: open command Line with administator 
+	Muốn chạy lại server mongod phải thực hiện
+mở lại server Mongod:
 
-cd C:\MongoDB\Server\3.6\bin
-mongod --dbpath C:\MongoDB\data
+	Mở command Line quyền administator
 
-6. Tao cau hinh de mo may len tu dong start server Mongo
+	Đi vào thư mục cài đặt Mongo
 
-6.1	Tao thu muc Log va mongod.log chua log khi chay 
-	 mkdir C:\MongoDB\Log
-	cd MongoDB\log	touch mongod.log
-6.2 Toa file cau hinh mongod.cfg trong C:\MongoDB\Server
-	Copy doan ma sau vao file mongod.cfg
+	`cd C:\MongoDB\Server\3.6\bin`
 
-systemLog:
-    destination: file
-    path: c:\MongoDB\data\log\mongod.log
-storage:
-    dbPath: c:\MongoDB\data\db
+	Chạy lệnh:
 
-Save lai
-7. Di vao thu muc C:\MongoDB\Server\3.6\bin
-mongod --config "C:\MongoDB\Server\3.6\mongod.cfg" --install
+	`mongod --dbpath C:\MongoDB\data`
 
-8. Mo Command Line with administrator 
+6. Tạo cấu hình để mở máy lên tự động start server Mongo
 
-chay ngam MongoDB
+	* Tạo thư mục Log và mongod.log lưu log khi chạy:
 
-net start MongoDB
+	 `mkdir C:\MongoDB\Log`
 
-server thong bao thanh cong
-The MongoDB service is starting.
-The MongoDB service was started successfully.
+	 `cd MongoDB\log	touch mongod.log`
 
-- Dung ROBOT3T kiem tra lai
+ 	* Tạo file cấu hình mongod.cfg theo đường dẫn
 
-De dung lai 
+		`C:\MongoDB\Server`
 
-net stop MongoDB
+	 **Copy đoạn mã sau vào file mongod.cfg**
 
-dung server
+	 ```
+		systemLog:
+    		destination: file
+    		path: c:\MongoDB\data\log\mongod.log
+		storage:
+    		dbPath: c:\MongoDB\data\db```
 
-9 Muon remove
+	Save lại
 
-C:\MongoDB\Server\3.6\bin
-mongod --remove // Loai bo nhung phan config, mongo k chay nua
+7. Đi vào thư mục:
 
-remove config
+ `cd C:\MongoDB\Server\3.6\bin`
 
-net start MongoDB se k chay
+ Chạy lệnh:
 
+	`mongod --config "C:\MongoDB\Server\3.6\mongod.cfg" --install`
 
-10. Muon chay lai phai chay config
+	để install config
 
-mongod --config "C:\MongoDB\Server\3.6\mongod.cfg" --install
+8. Mở Command Line quyền administrator
 
-11. Khi vua khoi dong windows chay lun Mongo
+	chạy ngầm MongoDB
 
-msconfig vao service kiem tra xem co MongoDB chua
+	`net start MongoDB`
 
-Chay lenh sau tren command Line with administrator
-sc.exe create MongoDB binPath= "\"C:\MongoDB\Server\3.6\bin\mongod.exe\" --service --config=\"C:\MongoDB\Server\3.6\mongod.cfg\"" DisplayName= "MongoDB" start= "auto"
+	Cli hiện thông báo
 
-"[SC] CreateService SUCCESS" bao thanh cong
+	>The MongoDB service is starting.
+	The MongoDB service was started successfully.
 
-msconfig vao service kiem tra lai
+	Server start thành công
 
-net start MongoDB de chay server MongoDB
+	Dùng ROBOT3T kiểm tra kết nối
 
-start thanh cong: [initandlisten] waiting for connections on port 27017
+	**Để stop server MongoDB** chạy lệnh
 
-De stop MongoDB service:
+	`net stop MongoDB`
 
-net stop MongoDB
+	server stop
 
-De remove MongoDB service:
+9. Remove không chạy serverss
 
-sc.exe delete MongoDB
-se khong chay tu dong nua
+	`C:\MongoDB\Server\3.6\bin
+mongod --remove`
 
-De start va Stop phai dung quyen administator
+	Loại bỏ những phần config, remove config, `net start MongoDB` sẽ không start được MongoDB
+
+	Muốn start lại Mông phải config lại
+
+	`mongod --config "C:\MongoDB\Server\3.6\mongod.cfg" --install`
+
+10. Cấu hình khi vừa khởi động windows chạy luôn MongoDBs
+
+	Start -> run -> gõ msconfig vào service kiểm tra xem có MongoDB chưa?
+
+	Chạy lệnh sau trên Command Line quyền administrator:
+
+	`sc.exe create MongoDB binPath= "\"C:\MongoDB\Server\3.6\bin\mongod.exe\" --service --config=\"C:\MongoDB\Server\3.6\mongod.cfg\"" DisplayName= "MongoDB" start= "auto"``
+
+	CLI thông báo:
+
+	[SC] CreateService SUCCESS
+
+	Start-> Run -> gõ msconfig vào service kiểm tra lại
+
+	`net start MongoDB` để chạy server MongoDB
+
+	CLI thông báo:
+
+		[initandlisten] waiting for connections on port 27017
+
+	start thành công
+
+	Để stop MongoDB service:
+
+	`net stop MongoDB`
+
+	Để remove MongoDB service:
+
+	`sc.exe delete MongoDB`
+
+	MongoDB sẽ không chạy tự động nữa
+
+>Note: Để start và stop Mongo phải chạy với quyền administator
