@@ -83,6 +83,14 @@ mở lại server Mongod:
 
 	để install config
 
+	Nếu không chạy được lệnh này:
+
+	`mongod --remove`
+
+	`mongod --logpath C:\MongoDB\data\log\mongod.log --dbpath C:\MongoDB\data --directoryperdb --install`
+
+	`mongod --logpath C:\MongoDB\data\log\mongod.log --logappend --dbpath C:\MongoDB\data --vv --directoryperdb --reinstall`	
+
 8. Mở Command Line quyền administrator
 
 	chạy ngầm MongoDB
